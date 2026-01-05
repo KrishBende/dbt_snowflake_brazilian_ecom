@@ -1,0 +1,166 @@
+version: 2
+
+sources:
+  - name: brazilian_ecommerce
+    database: LOCAL_DATA
+    schema: BRAZILIAN_ECOMMERCE_DATA
+
+    tables:
+      - name: customers
+        description: "Customer master data"
+        columns:
+          - name: customer_id
+            description: "Primary customer identifier used in orders"
+            tests:
+              - not_null
+
+          - name: customer_unique_id
+            description: "Stable customer identifier across multiple orders"
+
+          - name: customer_zip_code_prefix
+            description: "Customer ZIP code prefix"
+
+          - name: customer_city
+            description: "Customer city"
+
+          - name: customer_state
+            description: "Customer state code"
+
+      - name: geolocation
+        description: "Brazilian geolocation data by ZIP code prefix"
+        columns:
+          - name: geolocation_zip_code_prefix
+            description: "ZIP code prefix"
+
+          - name: geolocation_lat
+            description: "Latitude"
+
+          - name: geolocation_lng
+            description: "Longitude"
+
+          - name: geolocation_city
+            description: "City name"
+
+          - name: geolocation_state
+            description: "State code"
+
+      - name: orders
+        description: "Orders placed by customers"
+        columns:
+          - name: order_id
+            description: "Primary order identifier"
+            tests:
+              - not_null
+              - unique
+
+          - name: customer_id
+            description: "Customer who placed the order"
+            tests:
+              - not_null
+
+          - name: order_status
+            description: "Current status of the order"
+
+          - name: order_purchase_timestamp
+            description: "Timestamp when the order was placed"
+
+          - name: order_delivered_customer_date
+            description: "Actual delivery date to customer"
+
+          - name: order_estimated_delivery_date
+            description: "Estimated delivery date"
+
+      - name: order_items
+        description: "Line items for each order"
+        columns:
+          - name: order_id
+            description: "Order identifier"
+            tests:
+              - not_null
+
+          - name: order_item_id
+            description: "Item sequence number within the order"
+
+          - name: product_id
+            description: "Purchased product identifier"
+
+          - name: seller_id
+            description: "Seller fulfilling the product"
+
+          - name: price
+            description: "Item price"
+
+          - name: freight_value
+            description: "Shipping cost"
+
+      - name: order_payments
+        description: "Payment details for orders"
+        columns:
+          - name: order_id
+            description: "Order identifier"
+            tests:
+              - not_null
+
+          - name: payment_type
+            description: "Type of payment method used"
+
+          - name: payment_installments
+            description: "Number of payment installments"
+
+          - name: payment_value
+            description: "Amount paid"
+
+      - name: order_reviews
+        description: "Customer reviews per order"
+        columns:
+          - name: review_id
+            description: "Review identifier"
+            tests:
+              - not_null
+
+          - name: order_id
+            description: "Order being reviewed"
+            tests:
+              - not_null
+
+          - name: review_score
+            description: "Review score from 1 to 5"
+
+      - name: products
+        description: "Product catalog information"
+        columns:
+          - name: product_id
+            description: "Product identifier"
+            tests:
+              - not_null
+              - unique
+
+          - name: product_category_name
+            description: "Original product category name"
+
+          - name: product_weight_g
+            description: "Product weight in grams"
+
+      - name: product_category_name_translation
+        description: "Portuguese to English product category mapping"
+        columns:
+          - name: c1
+            description: "Original category name"
+
+          - name: c2
+            description: "Translated category name"
+
+      - name: sellers
+        description: "Seller master data"
+        columns:
+          - name: seller_id
+            description: "Seller identifier"
+            tests:
+              - not_null
+              - unique
+
+          - name: seller_city
+            description: "Seller city"
+
+          - name: seller_state
+            description: "Seller state code"

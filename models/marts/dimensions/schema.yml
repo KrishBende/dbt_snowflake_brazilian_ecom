@@ -1,0 +1,27 @@
+version: 2
+
+models:
+
+  - name: dim_customers
+    description: "Customer dimension with lifetime metrics"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_products
+    description: "Product dimension with sales metrics"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_sellers
+    description: "Seller dimension with performance metrics"
+    columns:
+      - name: seller_id
+        tests:
+          - not_null
+          - unique

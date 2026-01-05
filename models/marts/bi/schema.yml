@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: fct_orders_kpis
+    tests:
+      - not_null:
+          column_name: order_date
+    columns:
+      - name: total_orders
+        tests: [not_null]
+
+  - name: seller_kpis
+    columns:
+      - name: seller_id
+        tests:
+          - not_null
+          - unique

@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "Order-level fact table (one row per order)"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - order_id
+
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: total_payment_value
+        tests:
+          - not_null
+
+      - name: total_items
+        tests:
+          - not_null
+
+      - name: delivered_on_time
+        tests:
+          - accepted_values:
+              values: [0, 1]

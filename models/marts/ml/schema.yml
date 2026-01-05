@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: revenue_forecast_features
+    description: Daily revenue features for forecasting model
+    tests:
+      - not_null:
+          column_name: order_date
+
+    columns:
+      - name: total_revenue
+        tests:
+          - not_null
+
+      - name: revenue_lag_1
+        tests:
+          - not_null
+
+      - name: revenue_lag_7
+        tests:
+          - not_null
+
+  - name: order_forecast_features
+    description: Daily order features for forecasting model
+    tests:
+      - not_null:
+          column_name: order_date
+  
+  - name: customer_churn_dataset
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+
+      - name: is_churned
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
